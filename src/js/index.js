@@ -20,6 +20,7 @@ function getUserSearch(data) {
     image_type: 'photo',
     orientation: 'horizontal',
     safesearch: true,
+    webformatWidth: 340,
   });
   axios
     .get(`?${searchParams}`)
