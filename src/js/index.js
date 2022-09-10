@@ -1,35 +1,33 @@
 import axios from './axios';
-import { searchForm, galleryEl, loadMoreBut } from './elements';
-import { API_KEY } from './axios';
-import { markupUserGallery } from './markup-gallery';
+import { searchForm, galleryEl, loadMoreBut, inputEl } from './elements';
 
+import { markupUserGallery } from './markup-gallery';
+let pageNumber = 1;
+let totalPages;
 searchForm.addEventListener('submit', onHandleQuery);
 loadMoreBut.addEventListener('click', onLoadMore);
 function onHandleQuery(evt) {
   evt.preventDefault();
   clearGallery();
-  const inputEl = searchForm.elements.searchQuery;
+  //   const inputEl = searchForm.elements.searchQuery;
   if (!inputEl.value) return;
   else {
     getUserSearch(inputEl.value);
   }
 }
-let userSearchParams;
+
 function getUserSearch(data) {
-  const searchParams = new URLSearchParams({
-    key: API_KEY,
-    q: data,
-    image_type: 'photo',
-    orientation: 'horizontal',
-    safesearch: true,
-    webformatWidth: 340,
-    per_page: 40,
-  });
-  userSearchParams = searchParams;
   axios
-    .get(`?${searchParams}`)
+    .get('', {
+      params: {
+        q: data,
+      },
+    })
     .then(response => {
       markupUserGallery(response);
+      console.log(response);
+      pageNumber = 2;
+      // response.data
     })
     .catch(error => {
       console.log(error);
@@ -37,12 +35,21 @@ function getUserSearch(data) {
 }
 function clearGallery() {
   galleryEl.innerHTML = '';
+  pageNumber = 1;
 }
 function onLoadMore() {
   axios
-    .get(`?${userSearchParams}`)
+    .get('', {
+      params: {
+        q: inputEl.value,
+        page: pageNumber,
+      },
+    })
     .then(response => {
+      console.log(response);
+
       markupUserGallery(response);
+      pageNumber += 1;
     })
     .catch(error => {
       console.log(error);
