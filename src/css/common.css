@@ -4,7 +4,20 @@
   --timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   --animation-duration: 250ms;
 }
+body {
+  padding-top: 80px;
+}
+.search-form {
+  display: block;
+  text-align: center;
+  height: 70px;
+  padding-top: 20px;
 
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #a8a5a0;
+}
 .photo-card {
   flex-basis: calc(100% / 4 - 20px);
   margin-bottom: 20px;
@@ -40,5 +53,10 @@
   justify-content: space-around;
 }
 .info-item b {
+  display: block;
+  font-size: 14px;
+}
+.load-more {
+  margin: auto;
   display: block;
 }
