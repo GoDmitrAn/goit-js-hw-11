@@ -3,9 +3,9 @@ import { searchForm, galleryEl, loadMoreBut } from './elements';
 import { API_KEY } from './axios';
 import { markupUserGallery } from './markup-gallery';
 
-searchForm.addEventListener('submit', handleQuery);
-loadMoreBut.addEventListener('click', loadMoreItems);
-function handleQuery(evt) {
+searchForm.addEventListener('submit', onHandleQuery);
+loadMoreBut.addEventListener('click', onLoadMore);
+function onHandleQuery(evt) {
   evt.preventDefault();
   clearGallery();
   const inputEl = searchForm.elements.searchQuery;
@@ -14,9 +14,9 @@ function handleQuery(evt) {
     getUserSearch(inputEl.value);
   }
 }
-let searchParams;
+let userSearchParams;
 function getUserSearch(data) {
-  searchParams = new URLSearchParams({
+  const searchParams = new URLSearchParams({
     key: API_KEY,
     q: data,
     image_type: 'photo',
@@ -25,6 +25,7 @@ function getUserSearch(data) {
     webformatWidth: 340,
     per_page: 40,
   });
+  userSearchParams = searchParams;
   axios
     .get(`?${searchParams}`)
     .then(response => {
@@ -37,6 +38,13 @@ function getUserSearch(data) {
 function clearGallery() {
   galleryEl.innerHTML = '';
 }
-function loadMoreItems(evt) {
-  evt.preventDefault();
+function onLoadMore() {
+  axios
+    .get(`?${userSearchParams}`)
+    .then(response => {
+      markupUserGallery(response);
+    })
+    .catch(error => {
+      console.log(error);
+    });
 }
