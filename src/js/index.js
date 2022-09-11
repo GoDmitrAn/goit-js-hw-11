@@ -27,7 +27,7 @@ function getUserSearch(data) {
     .then(response => {
       markupUserGallery(response);
       const resObj = response.data;
-      totalPages = Math.ceil(resObj.total / resObj.hits.length);
+      totalPages = Math.ceil(resObj.totalHits / resObj.hits.length);
       if (pageNumber < totalPages) {
         loadMoreBut.style.display = 'block';
       }

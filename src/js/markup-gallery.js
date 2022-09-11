@@ -5,7 +5,7 @@ Notiflix.Notify.init({
   width: '380px',
   position: 'left-top',
   distance: '10px',
-  timeout: 1500,
+  timeout: 2000,
 });
 
 export function markupUserGallery(responce) {
@@ -15,19 +15,16 @@ export function markupUserGallery(responce) {
       'Sorry, there are no images matching your search query. Please try again.'
     );
   }
-  itemsResponceArray = data.hits;
-  // console.log(data.total);
-  // console.log(itemsResponceArray.length);
+  Notiflix.Notify.success(`Hooray! We found ${data.totalHits} images.`);
 
-  // totalPages = Number(data.total) / itemsResponceArray.length;
-  // console.log(totalPages);
+  itemsResponceArray = data.hits;
 
   const fullTemplate = itemsResponceArray
     .map(item => {
       return createGalleryItem({ ...item });
     })
     .join('');
-  //   console.log(fullTemplate);
+
   renderGallery(fullTemplate);
 }
 function createGalleryItem({
