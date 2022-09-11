@@ -7,6 +7,7 @@ Notiflix.Notify.init({
   distance: '10px',
   timeout: 1500,
 });
+
 export function markupUserGallery(responce) {
   data = responce.data;
   if (data.total == 0) {
@@ -15,8 +16,11 @@ export function markupUserGallery(responce) {
     );
   }
   itemsResponceArray = data.hits;
-  console.log(data.total);
-  console.log(itemsResponceArray.length);
+  // console.log(data.total);
+  // console.log(itemsResponceArray.length);
+
+  // totalPages = Number(data.total) / itemsResponceArray.length;
+  // console.log(totalPages);
 
   const fullTemplate = itemsResponceArray
     .map(item => {

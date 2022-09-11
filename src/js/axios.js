@@ -11,7 +11,7 @@ const instance = axios.create({
     orientation: 'horizontal',
     safesearch: true,
     webformatWidth: 340,
-    per_page: 4,
+    per_page: 40,
   },
 });
 // instance.defaults.headers.common['Authorization'] =

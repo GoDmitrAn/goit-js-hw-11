@@ -2,6 +2,7 @@ import axios from './axios';
 import { searchForm, galleryEl, loadMoreBut, inputEl } from './elements';
 
 import { markupUserGallery } from './markup-gallery';
+loadMoreBut.style.display = 'none';
 let pageNumber = 1;
 let totalPages;
 searchForm.addEventListener('submit', onHandleQuery);
@@ -9,7 +10,7 @@ loadMoreBut.addEventListener('click', onLoadMore);
 function onHandleQuery(evt) {
   evt.preventDefault();
   clearGallery();
-  //   const inputEl = searchForm.elements.searchQuery;
+
   if (!inputEl.value) return;
   else {
     getUserSearch(inputEl.value);
@@ -25,9 +26,13 @@ function getUserSearch(data) {
     })
     .then(response => {
       markupUserGallery(response);
-      console.log(response);
-      pageNumber = 2;
-      // response.data
+      const resObj = response.data;
+      totalPages = Math.ceil(resObj.total / resObj.hits.length);
+      if (pageNumber < totalPages) {
+        loadMoreBut.style.display = 'block';
+      }
+
+      pageNumber += 1;
     })
     .catch(error => {
       console.log(error);
@@ -46,7 +51,9 @@ function onLoadMore() {
       },
     })
     .then(response => {
-      console.log(response);
+      if (pageNumber == totalPages) {
+        loadMoreBut.style.display = 'none';
+      }
 
       markupUserGallery(response);
       pageNumber += 1;
