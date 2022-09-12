@@ -57,6 +57,6 @@ body {
   font-size: 14px;
 }
 .load-more {
-  margin: auto;
+  margin: 0px auto 20px;
   display: block;
 }

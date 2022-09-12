@@ -5,31 +5,30 @@ Notiflix.Notify.init({
   width: '380px',
   position: 'left-top',
   distance: '10px',
-  timeout: 2000,
+  timeout: 2500,
 });
 
 export function markupUserGallery(responce) {
   data = responce.data;
-  if (data.total == 0) {
+  if (Number(data.total) == 0) {
     Notiflix.Notify.failure(
       'Sorry, there are no images matching your search query. Please try again.'
     );
+  } else {
+    Notiflix.Notify.success(`Hooray! We found ${data.totalHits} images.`);
+    itemsResponceArray = data.hits;
+    const fullTemplate = itemsResponceArray
+      .map(item => {
+        return createGalleryItem({ ...item });
+      })
+      .join('');
+
+    renderGallery(fullTemplate);
   }
-  Notiflix.Notify.success(`Hooray! We found ${data.totalHits} images.`);
-
-  itemsResponceArray = data.hits;
-
-  const fullTemplate = itemsResponceArray
-    .map(item => {
-      return createGalleryItem({ ...item });
-    })
-    .join('');
-
-  renderGallery(fullTemplate);
 }
 function createGalleryItem({
   webformatURL,
-  largeImageURL,
+  // largeImageURL,
   tags,
   likes,
   views,
