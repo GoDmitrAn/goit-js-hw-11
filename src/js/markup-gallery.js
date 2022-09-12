@@ -17,7 +17,7 @@ export function markupUserGallery(response) {
     );
   } else {
     Notiflix.Notify.success(`Hooray! We found ${serverData.totalHits} images.`);
-    itemsResponceArray = serverData.hits;
+    const itemsResponceArray = serverData.hits;
     const fullTemplate = itemsResponceArray
       .map(item => {
         return createGalleryItem({ ...item });
