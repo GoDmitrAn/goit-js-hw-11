@@ -8,15 +8,16 @@ Notiflix.Notify.init({
   timeout: 2500,
 });
 
-export function markupUserGallery(responce) {
-  const data = responce.data;
-  if (Number(data.total) == 0) {
+export function markupUserGallery(response) {
+  const serverData = response.data;
+  console.log(serverData);
+  if (Number(serverData.total) == 0) {
     Notiflix.Notify.failure(
       'Sorry, there are no images matching your search query. Please try again.'
     );
   } else {
-    Notiflix.Notify.success(`Hooray! We found ${data.totalHits} images.`);
-    itemsResponceArray = data.hits;
+    Notiflix.Notify.success(`Hooray! We found ${serverData.totalHits} images.`);
+    itemsResponceArray = serverData.hits;
     const fullTemplate = itemsResponceArray
       .map(item => {
         return createGalleryItem({ ...item });
