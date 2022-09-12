@@ -9,7 +9,7 @@ Notiflix.Notify.init({
 });
 
 export function markupUserGallery(responce) {
-  data = responce.data;
+  const data = responce.data;
   if (Number(data.total) == 0) {
     Notiflix.Notify.failure(
       'Sorry, there are no images matching your search query. Please try again.'
