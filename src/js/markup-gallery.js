@@ -1,5 +1,11 @@
 import Notiflix from 'notiflix';
 import { galleryEl } from './elements';
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
+
+let lightbox = new SimpleLightbox('.gallery a', {
+  /* options */
+});
 
 Notiflix.Notify.init({
   width: '380px',
@@ -10,14 +16,12 @@ Notiflix.Notify.init({
 
 export function markupUserGallery(response) {
   const serverData = response.data;
-  console.log(serverData);
   if (Number(serverData.total) == 0) {
     Notiflix.Notify.failure(
       'Sorry, there are no images matching your search query. Please try again.'
     );
   } else {
     Notiflix.Notify.success(`Hooray! We found ${serverData.totalHits} images.`);
-    // const itemsResponceArray = serverData.hits;
     const fullTemplate = serverData.hits
       .map(item => {
         return createGalleryItem({ ...item });
@@ -25,18 +29,19 @@ export function markupUserGallery(response) {
       .join('');
 
     renderGallery(fullTemplate);
+    lightbox.refresh();
   }
 }
 function createGalleryItem({
   webformatURL,
-  // largeImageURL,
+  largeImageURL,
   tags,
   likes,
   views,
   comments,
   downloads,
 }) {
-  const template = `<div class="photo-card">
+  const template = `<a href=${largeImageURL} class="gallery__item"><div class="photo-card">
     <img src=${webformatURL} alt=${tags} loading="lazy" />
     <div class="info">
       <p class="info-item">
@@ -52,7 +57,7 @@ function createGalleryItem({
         <b>Downloads</b>${downloads}
       </p>
     </div>
-    </div>`;
+    </div></a>`;
   return template;
 }
 function renderGallery(markup) {

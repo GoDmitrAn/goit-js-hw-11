@@ -1,8 +1,7 @@
-import axios, { userUrl } from './axios';
-// import { API_KEY } from './axios';
+import axios from './axios';
 import { searchForm, galleryEl, loadMoreBut, inputEl } from './elements';
-
 import { markupUserGallery } from './markup-gallery';
+
 loadMoreBut.style.display = 'none';
 let pageNumber = 1;
 let totalPages;

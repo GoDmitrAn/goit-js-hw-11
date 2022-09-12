@@ -18,17 +18,21 @@ body {
   width: 100%;
   background-color: #a8a5a0;
 }
-.photo-card {
+.gallery__item {
+  text-decoration: none;
+  color: #1e1e1e;
   flex-basis: calc(100% / 4 - 20px);
   margin-bottom: 20px;
   box-shadow: 0 1px 3px rgb(0 0 0 / 20%), 0 1px 1px rgb(0 0 0 / 14%),
     0 2px 1px -1px rgb(0 0 0 / 12%);
   transition: box-shadow var(--animation-duration) var(--timing-function);
+}
+.photo-card {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
-.photo-card:hover {
+.gallery__item:hover {
   box-shadow: 0 3px 7px 3px #6e628cc2, 0 1px 1px #00000024,
     0 2px 1px -1px #0000001f;
   cursor: zoom-in;
