@@ -31,6 +31,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  height: 100%;
 }
 .gallery__item:hover {
   box-shadow: 0 3px 7px 3px #6e628cc2, 0 1px 1px #00000024,

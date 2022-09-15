@@ -1,36 +1,21 @@
-import Notiflix from 'notiflix';
 import { galleryEl } from './elements';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
-
+import '../css/common.css';
 let lightbox = new SimpleLightbox('.gallery a', {
   /* options */
 });
 
-Notiflix.Notify.init({
-  width: '380px',
-  position: 'left-top',
-  distance: '10px',
-  timeout: 2500,
-});
-
 export function markupUserGallery(response) {
   const serverData = response.data;
-  if (Number(serverData.total) == 0) {
-    Notiflix.Notify.failure(
-      'Sorry, there are no images matching your search query. Please try again.'
-    );
-  } else {
-    Notiflix.Notify.success(`Hooray! We found ${serverData.totalHits} images.`);
-    const fullTemplate = serverData.hits
-      .map(item => {
-        return createGalleryItem({ ...item });
-      })
-      .join('');
+  const fullTemplate = serverData.hits
+    .map(item => {
+      return createGalleryItem({ ...item });
+    })
+    .join('');
 
-    renderGallery(fullTemplate);
-    lightbox.refresh();
-  }
+  renderGallery(fullTemplate);
+  lightbox.refresh();
 }
 function createGalleryItem({
   webformatURL,
@@ -63,3 +48,4 @@ function createGalleryItem({
 function renderGallery(markup) {
   galleryEl.insertAdjacentHTML('beforeend', markup);
 }
+export { Notiflix };
